@@ -1,10 +1,4 @@
-// Se crea un constructor de Producto, para luego asignarle de base dos productos a un array de producto.
-
-
-// const producto = [
-//     { id, descripcion: "Mesa de Arrime", stock: 2, precio: 15000 },
-//     { id, descripcion: "Espejo", stock: 1, precio: 5000 }
-// ]
+// Se crea un constructor de Producto.
 
 class unProducto {
     constructor(id, descripcion, stock, precio) {
@@ -32,14 +26,13 @@ class unProducto {
 
 }
 
-
+//la clase productos es un array de un Producto, la misma contiene los métodos con los que se van a manejar los productos
 class productos {
     constructor() {
         this.listaProducto = [];
     }
 
-    //Agregar un nuevo producto al registro que se encuentre vacio, calidando que no tenga descripción.
-    //Se usa una variable control, para verificar si no se pudo agregar un producto por no tener registros vacíos
+    //Crea un nuevo producto y lo agrega al array de productos.
     agregarProducto() {
 
         let descripcion;
@@ -73,6 +66,7 @@ class productos {
 
     }
 
+//Se crea un método que carga 3 productos de ejemplo al array
     cargarEjemplos() {
         const prod1 = new unProducto(1, "Mesa de Arrime", 20, 15000);
         this.listaProducto.push(prod1);
@@ -82,6 +76,7 @@ class productos {
         this.listaProducto.push(prod3);
     }
 
+// Recorre el array y muestra el producto si hay Stock
     verProductosDisp() {
         if (this.listaProducto.some((prod) => prod.stock > 0)) {
             this.listaProducto.forEach((prod) => {
@@ -92,6 +87,7 @@ class productos {
         } else { alert("Por el momento no tenemos productos disponibles") }
     }
 
+//Busca por el ID ingresado y muestra el stock de ese producto
     mostrarStock() {
 
         let opcion = parseInt(prompt("Ingresa el número de id del producto a consultar el STOCK o CERO para cancelar: "));
@@ -109,7 +105,8 @@ class productos {
         }
     }
 
-    //Consultar Precio muestra el precio del producto del ID seleccionado. Valida que el registro no sea nulo
+
+//Consulta el Precio de un producto, buscando por ID
     consultarPrecio() {
 
         let opcion = parseInt(prompt("Ingresa el número de ID del producto a consultar el PRECIO o CERO para cancelar: "));
@@ -127,9 +124,9 @@ class productos {
         }
     }
 
-    //Suma o resta stock según el ID elegido. Valida que operación quiere hacer el usuario según la variable tipo
-    //En caso de restar verifica que haya stock suficiente para restar la cantidad ingresada.
-    //ademas, verifica que no sea un registro nulo comparando el valor del stock, recordar que stock -1 es un registro nulo.
+//Suma o resta stock según el ID elegido. Valida que operación quiere hacer el usuario según la variable tipo
+//En caso de restar verifica que haya stock suficiente para restar la cantidad ingresada.
+//ademas, verifica que no sea un registro nulo comparando el valor del stock
     actualizarStock() {
 
         let tipo = prompt("Ingresa si queres SUMAR o RESTAR productos al stock").toUpperCase();
@@ -138,7 +135,7 @@ class productos {
             while (cant <= 0) {
                 cant = parseInt(prompt("El número es incorrecto, ingresa la cantidad: "));
             }
-            let opcion = parseInt(prompt("Ingresa el número de id del producto a MODIFICAR el STOCK o CERO para salir: "));
+            let opcion = parseInt(prompt("Ingresa el número de ID del producto a MODIFICAR el STOCK o CERO para salir: "));
             if (opcion != 0) {
                 const prod = this.listaProducto.find((p) => p.id === opcion)
                 if (prod === undefined) {
@@ -150,12 +147,12 @@ class productos {
                         alert("Stock actualizado");
                         prod.mostrarProducto();
                     } else {
-                        if (cant > prod[stock]) {
-                            alert("El stock es incorrecto: Actualmente hay " + prod[stock] + " y se quiere restar " + cant);
+                        if (cant > prod.stock) {
+                            alert("El STOCK es incorrecto: Actualmente hay " + prod.stock + " y se quiere restar " + cant);
                         } else {
                             prod.stock -= cant;
                             alert("Stock actualizado");
-                        prod.mostrarProducto();
+                            prod.mostrarProducto();
                         }
                     }
                 }
@@ -179,18 +176,21 @@ while (nombreUsuario == "") {
 }
 
 //Se muestra por consola le menú. Se hizo por consola para las opciones estén más visibles
-alert("Bienvenido " + nombreUsuario + " te voy a dejar un menú para que puedas elegir...");
+alert("Bienvenido " + nombreUsuario.toUpperCase() + " te voy a dejar un menú para que puedas elegir...");
 
+//Se crea la clase productos
 const prod = new productos();
+
+//Se le cargan los productos ejemplos
 prod.cargarEjemplos();
 
-//La segunda funcion le pide al usuario que ingrese un número de opción, y se usa CERO para salir del programa
+//Ejecuta la función seleccionarOpcion, que muestra el menú y de acuerdo a la opción seleccionada ejecuta el método asociado.
 seleccionarOpcion();
 
 
 function seleccionarOpcion() {
 
-    let opcion = prompt(nombreUsuario + " ingresa la opción del MENU o CERO para salir: \n" + mostrarMenu());
+    let opcion = prompt(nombreUsuario.toUpperCase() + " ingresa la opción del MENU o CERO para salir: \n" + creaMenu());
     switch (opcion) {
         case "1":
             console.clear();
@@ -230,9 +230,9 @@ function seleccionarOpcion() {
 
 
 
-//La función muestra por consola las opciones posibles.
+//La función crea una variable con los datos del menú.
 
-function mostrarMenu() {
+function creaMenu() {
     let menu = "-------------------------------\n";
     menu += ("1. Ver productos dispobibles\n");
     menu += ("2. Consultar Stock\n");
