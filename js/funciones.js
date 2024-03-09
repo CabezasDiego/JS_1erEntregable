@@ -1,5 +1,10 @@
+//Guarda prodcutos en al sessionStorage
+const guardaProductosSS = (listaProductos) => {
+    sessionStorage.setItem('productos', JSON.stringify(listaProductos));
+}
+
 //Devuelve lo de la session Storage de productos
-const obtenerProductosSS =  () => {
+const obtenerProductosSS = async () => {
     return JSON.parse(sessionStorage.getItem('productos') ?? '[]');
 }
 
@@ -79,7 +84,7 @@ const actualizarStockxCompra = () => {
     });
 
     // Guarda los cambios de productos en sessionStorage
-    sessionStorage.setItem('productos', JSON.stringify(productos));
+    guardaProductosSS(productos);
     eliminarCarrito();
 }
 

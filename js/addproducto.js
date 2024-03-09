@@ -45,7 +45,7 @@ function agregarProducto() {
         //si están completos creo un nuevo producto con los valores y lo sumo al array y luego se guarda en la sessionStorage
         let prod = new unProducto(nID, nombre, descripcion, stock, precio, urlImagen);
         listaProductos.push(prod);
-        sessionStorage.setItem('productos', JSON.stringify(listaProductos));
+        guardaProductosSS = (listaProductos);
         location.reload();;
     }
 

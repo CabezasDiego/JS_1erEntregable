@@ -107,7 +107,7 @@ function actProd() {
     //Ingreso al array el procucto actualizado
     listaProductosNueva.push(elProducto);
     //Guardo el array en al sessionStorage
-    sessionStorage.setItem('productos', JSON.stringify(listaProductosNueva));
+    guardaProductosSS = (listaProductosNueva);
 
     // Muestra el prod actualizado
     renderProd(elProducto);

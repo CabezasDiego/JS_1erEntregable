@@ -3,13 +3,14 @@ renderProductos();
 // Función asíncrona para renderizar los productos
 async function renderProductos() {
     // Verifica si sessionStorage está vacío o no
-    if (cantProductos() == 0) {
+    if (await cantProductos() == 0) {
+
         // Si está vacío, carga los datos desde el archivo JSON usando fetch
         fetch('./js/productos.json')
             .then(respuesta => respuesta.json())
-            .then(listaProductos => {
+            .then( listaProductos => {
                 // Guarda los datos en sessionStorage
-                sessionStorage.setItem('productos', JSON.stringify(listaProductos));
+                guardaProductosSS(listaProductos);
             })
             .catch(error => { alert("ERROR al cargar el dato") });
     }
@@ -52,12 +53,6 @@ async function renderProductos() {
     // Agrega los elementos HTML al nodoProductos en el documento
     document.getElementById("nodoProductos").innerHTML = elemento;
 }
-
-// Función asíncrona para cargar los productos desde sessionStorage
-async function cargarProductos() {
-    listaProductos = JSON.parse(sessionStorage.productos);
-}
-
 
 
 function mostrarPopUp(btn, index) {
