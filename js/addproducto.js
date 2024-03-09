@@ -1,13 +1,3 @@
-//Obtengo el listado de productos
-const listaProductos=JSON.parse(sessionStorage.productos);
-
-//Muestra el número de ID que se va a cargar
-let nodo = document.getElementById("numID");
-    let elemento = document.createElement("div");
-    elemento.className = 'input-group input-group-sm mb-3';
-    elemento.innerHTML = `<span class="input-group-text" id="basic-addon1">ID: ${obtenerMaxID()+1}</span>`
-    nodo.appendChild(elemento);
-
 //Se crea una clase producto para luego sumarlo al array de prodcutos
 class unProducto {
     constructor(id, nombre, descripcion, stock, precio, dirImagen) {
@@ -20,17 +10,43 @@ class unProducto {
     }
 }
 
-//La función devuelve el último ID de los productos
-function obtenerMaxID() {
-    return listaProductos.length;
+//Obtengo el listado de productos
+let listaProductos = obtenerProductosSS();
 
-}
+//Muestra el número de ID que se va a cargar
+let nodo = document.getElementById("numID");
+let elemento = document.createElement("div");
+let nID = (nuevoID());
 
-//La función agrega un producto al listado de productos. Y en ID es correlativo
+//creo una función asynca para mostrar correctamente el nuevo ID
+elemento.className = 'input-group input-group-sm mb-3';
+elemento.innerHTML = `<span class="input-group-text new-id">ID nuevo: ${nID}</span>`;
+nodo.appendChild(elemento);
+
+
+
+//La función agrega un producto al listado de productos, con le nuevo ID obteniendo los datos del formulario
 function agregarProducto() {
-    let prod = new unProducto(obtenerMaxID()+1,document.getElementById("inputNombre").value,document.getElementById("inputDescripcion").value,document.getElementById("inputStock").value,document.getElementById("inputPrecio").value,document.getElementById("inputUrl").value);
-    listaProductos.push(prod);
-    sessionStorage.setItem('productos', JSON.stringify(listaProductos));
-    location. reload()
+
+
+    const nombre = document.getElementById('inputNombre').value.trim();
+    const descripcion = document.getElementById('inputDescripcion').value.trim();
+    const urlImagen = document.getElementById('inputUrl').value.trim();
+    const stock = document.getElementById('inputStock').value.trim();
+    const precio = document.getElementById('inputPrecio').value.trim();
+    // Verificar si todos los campos están completos
+    if (nombre === '' || descripcion === '' || urlImagen === '' || stock === '' || precio === '') {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Es necesario completar todos los campos!",
+        });
+    } else {
+        //si están completos creo un nuevo producto con los valores y lo sumo al array y luego se guarda en la sessionStorage
+        let prod = new unProducto(nID, nombre, descripcion, stock, precio, urlImagen);
+        listaProductos.push(prod);
+        sessionStorage.setItem('productos', JSON.stringify(listaProductos));
+        location.reload();;
+    }
 
 }

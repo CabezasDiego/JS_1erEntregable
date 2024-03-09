@@ -1,6 +1,3 @@
-//Obtengo el listado de productos
-let listaProductos = JSON.parse(sessionStorage.productos);
-
 //Se crea una clase producto para luego crear un objeto actualizado y sumarlo al array
 class unProducto {
     constructor(id, nombre, descripcion, stock, precio, dirImagen) {
@@ -13,6 +10,9 @@ class unProducto {
     }
 }
 
+//Obtengo el listado de productos
+let listaProductos = JSON.parse(sessionStorage.productos);
+
 //Cambia el estado disabled del botón según el valor del campo
 function estadoBoton() {
     let valor = document.getElementById("valorBuscar").value;
@@ -21,7 +21,6 @@ function estadoBoton() {
     } else {
         document.getElementById("botonBuscar").disabled = true;
     }
-
 }
 
 //Toma el valor del ID ingresado y muestra el producto
@@ -32,60 +31,43 @@ function buscarID() {
     let ID = parseInt(document.getElementById("valorBuscar").value);
     let prod = listaProductos.find((p) => p.id == ID);
 
-
+    //si encuentra el producto muestra el resultado
     if (prod != null) {
-        armarVista(prod);
+        renderProd(prod);
         sessionStorage.setItem("id", ID);
         let btn = document.createElement("div");
         btn.className = 'd-grid justify-content-end';
         btn.innerHTML = `<button type="button" class="btn btn-primary" onclick="actProd()">Actualizar</button>`;
-        let nodo = document.getElementById("muestraResultado");
-        nodo.appendChild(btn);
-
+        let nodoBtn = document.getElementById("muestraResultado");
+        nodoBtn.appendChild(btn);
+    }
+    else{
+        document.getElementById("muestraResultado").innerHTML=``;
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: `No se encontró producto con el ID ${ID}`,
+            showConfirmButton: false,
+            timer: 2000
+        });
     }
 };
 
-//El  boton actualizar llama a la función que crea una nueva lista de productos filtrada
-//y vuelve a sumar el producto con los nuevos valores obtenidos de los campos
-function actProd() {
-    let listaProductos = JSON.parse(sessionStorage.productos);
-    const elProducto = new unProducto(parseInt(sessionStorage.id), document.getElementById("inputNombre").value, document.getElementById("inputDescripcion").value,
-        document.getElementById("inputStock").value, document.getElementById("inputPrecio").value, document.getElementById("inputUrl").value);
-
-    const listaProductosNueva = listaProductos.filter(prod => prod.id != elProducto.id);
-    listaProductosNueva.push(elProducto);
-    sessionStorage.setItem('productos', JSON.stringify(listaProductosNueva));
-
-    armarVista(elProducto);
-    // Obtener el elemento con la clase input-group
-    let inputGroup = document.querySelector('.input-group');
-
-    // Ocultar el elemento estableciendo su estilo de visualización en "none"
-    inputGroup.remove();
-
+//Arma la vista con los datos del prod encontrado
+function renderProd(prod) {
+    //obtengo el nodo
     let nodo = document.getElementById("muestraResultado");
-    let texto = document.createElement("div");
-    texto.className = 'alert alert-success';
-    texto.innerHTML="Datos actualizados!!!";
-    nodo.appendChild(texto);
-
-
-
-
-
-
-}
-
-function armarVista(prod) {
-    let nodo = document.getElementById("muestraResultado");
+    //borro su contenido
     nodo.innerHTML = '';
 
+    //Creo un div para la imagen
     let imagen = document.createElement("div");
     imagen.className = 'col-md-3 align-items-center';
     imagen.innerHTML = `<div class="text-center border-0" > 
     <img src = "${prod.dirImagen}" class="card-img-top my-5" alt = "${prod.nombre}" >`
+    //Creo un div para mostrar los datos del producto
     let datos = document.createElement("div");
-    datos.className = 'col';
+    datos.className = 'row align-items-center justify-content-center';
     datos.innerHTML = `<div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Nombre</span>
         <input type="text" class="form-control" id="inputNombre" value="${prod.nombre}">
@@ -105,13 +87,38 @@ function armarVista(prod) {
 <div class="input-group mb-3">
   <span class="input-group-text" id="basic-addon1">URL imagen</span>
   <input type="text" class="form-control" id="inputUrl" value="${prod.dirImagen}">
-</div>`
-    let btn = document.createElement("div");
-    btn.className = 'd-grid justify-content-end';
-    btn.innerHTML = `<button type="button" class="btn btn-primary" onclick="actProd()">Actualizar</button>`;
-
+</div>`;
+    //actualizo ambos nodos con los datos creados
     nodo.appendChild(imagen);
     nodo.appendChild(datos);
+}
 
+//El  boton actualizar llama a la función que crea una nueva lista de productos filtrada
+//y vuelve a sumar el producto con los nuevos valores obtenidos de los campos
+function actProd() {
+    //Obtengo los produsctos de la sessionstorage
+    let listaProductos = obtenerProductosSS();
+    //creo un producto con los nuevos valores
+    const elProducto = new unProducto(parseInt(sessionStorage.id), document.getElementById("inputNombre").value, document.getElementById("inputDescripcion").value,
+        document.getElementById("inputStock").value, document.getElementById("inputPrecio").value, document.getElementById("inputUrl").value);
+
+    //Hago una copia de la lista sin le producto a modificar
+    const listaProductosNueva = listaProductos.filter(prod => prod.id != elProducto.id);
+    //Ingreso al array el procucto actualizado
+    listaProductosNueva.push(elProducto);
+    //Guardo el array en al sessionStorage
+    sessionStorage.setItem('productos', JSON.stringify(listaProductosNueva));
+
+    // Muestra el prod actualizado
+    renderProd(elProducto);
+
+    //Mensaje de confirmación 
+    Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Los datos fueron actualizados",
+        showConfirmButton: false,
+        timer: 1500
+    });
 }
 

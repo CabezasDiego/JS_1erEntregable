@@ -1,0 +1,24 @@
+[{
+    "id": 1,
+    "nombre": "Matera",
+    "descripcion": "Materas diferentes tapizados a elección",
+    "stock": 10,
+    "precio": 70900,
+    "dirImagen": "https://http2.mlstatic.com/D_NQ_NP_849414-MLA54944952815_042023-O.webp"
+}, {
+    "id": 2,
+    "nombre": "Silla de comedor",
+    "descripcion": "Asientos acolchados aportan en gran medida ese bienestar que buscamos.",
+    "stock": 0,
+    "precio": 25000,
+    "dirImagen": "https://http2.mlstatic.com/D_NQ_NP_2X_746088-MLU73205227385_122023-F.webp"
+},
+{
+    "id": 3,
+    "nombre": "Placard",
+    "descripcion": "Placard de diseño moderno y elegante en color blanco de la línea Premium.",
+    "stock": 5,
+    "precio": 195000,
+    "dirImagen": "https://http2.mlstatic.com/D_NQ_NP_2X_828354-MLU74116112978_012024-F.webp"
+}
+]

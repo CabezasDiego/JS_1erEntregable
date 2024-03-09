@@ -1,0 +1,105 @@
+
+
+.card {
+    height: 100%; /* Establece la altura de la tarjeta */
+    display: flex; /* Usa flexbox para alinear los elementos internos */
+    flex-direction: column; /* Alinea los elementos verticalmente */
+}
+
+.card-img-top {
+    /*flex: 1; /* La imagen ocupará el espacio disponible */
+    object-fit: cover; /* Mantiene la relación de aspecto de la imagen */
+    height: 250px; /* Establece la altura deseada para todas las imágenes */
+   /* width: 100%; /* Ajusta la anchura para llenar el contenedor */
+}
+
+.card-body {
+    flex: 1; /* El cuerpo de la tarjeta ocupará el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+}
+
+.card-body h5 {
+    height: 50px; /* Establece la altura máxima deseada para todos los títulos */
+    line-height: 50px; /* Centra verticalmente el texto dentro del h5 */
+    overflow: hidden; /* Evita que el texto se desborde si excede la altura máxima */
+}
+
+.card-text {
+    text-align: justify; /* Justifica el texto */
+    vertical-align: top; /* Alinea el texto en la parte superior */
+}
+
+.comprar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-comprar {
+    width: 100%; /* Ancho del botón Comprar */
+}
+
+.cantidad-compra {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px; /* Añade espacio alrededor de los elementos */
+    background-color: white; /* Fondo blanco */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+
+.cantidad-compra input[type="number"] {
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Borde de 2px de ancho y color negro transparente */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra suave alrededor del borde */
+    outline: none; /* Elimina el contorno */
+    text-align: right; /* Alinea el texto a la derecha */
+}
+
+
+.cantidad-compra button {
+    margin: 5px; /* Añade espacio entre los elementos */
+}
+
+.fondo-difuminado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo con opacidad */
+    z-index: 1000; /* Asegura que el fondo esté por encima de otros elementos */
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    margin: 5px;
+
+}
+
+.card-popup {
+    width: 300px; /* Ancho deseado para la card */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    margin: 20px; /* Agregar margen alrededor de la card */
+}
+
+
+.card-img-top-popup {
+    width: 100%; /* Ajustar el ancho de la imagen al 100% de la card */
+    height: auto; /* Altura automática para mantener la proporción */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
