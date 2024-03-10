@@ -16,7 +16,8 @@ let listaProductos = obtenerProductosSS();
 //Muestra el número de ID que se va a cargar
 let nodo = document.getElementById("numID");
 let elemento = document.createElement("div");
-let nID = (nuevoID());
+let nID = nuevoID();
+
 
 //creo una función asynca para mostrar correctamente el nuevo ID
 elemento.className = 'input-group input-group-sm mb-3';
@@ -27,13 +28,12 @@ nodo.appendChild(elemento);
 
 //La función agrega un producto al listado de productos, con le nuevo ID obteniendo los datos del formulario
 function agregarProducto() {
-
-
     const nombre = document.getElementById('inputNombre').value.trim();
     const descripcion = document.getElementById('inputDescripcion').value.trim();
     const urlImagen = document.getElementById('inputUrl').value.trim();
     const stock = document.getElementById('inputStock').value.trim();
     const precio = document.getElementById('inputPrecio').value.trim();
+
     // Verificar si todos los campos están completos
     if (nombre === '' || descripcion === '' || urlImagen === '' || stock === '' || precio === '') {
         Swal.fire({
@@ -42,11 +42,21 @@ function agregarProducto() {
             text: "Es necesario completar todos los campos!",
         });
     } else {
+        
         //si están completos creo un nuevo producto con los valores y lo sumo al array y luego se guarda en la sessionStorage
         let prod = new unProducto(nID, nombre, descripcion, stock, precio, urlImagen);
         listaProductos.push(prod);
-        guardaProductosSS = (listaProductos);
-        location.reload();;
-    }
+        guardaProductosSS(listaProductos);
 
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: true,
+          });
+
+          document.getElementById("ventana").innerHTML = ""
+          
+    }
+    
 }

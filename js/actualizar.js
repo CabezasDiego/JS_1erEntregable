@@ -107,7 +107,7 @@ function actProd() {
     //Ingreso al array el procucto actualizado
     listaProductosNueva.push(elProducto);
     //Guardo el array en al sessionStorage
-    guardaProductosSS = (listaProductosNueva);
+    guardaProductosSS(listaProductosNueva);
 
     // Muestra el prod actualizado
     renderProd(elProducto);
@@ -120,5 +120,6 @@ function actProd() {
         showConfirmButton: false,
         timer: 1500
     });
+    document.getElementById("muestraResultado").innerHTML=``;
 }
 

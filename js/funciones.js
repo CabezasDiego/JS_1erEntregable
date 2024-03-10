@@ -4,25 +4,25 @@ const guardaProductosSS = (listaProductos) => {
 }
 
 //Guarda carrito en al sessionStorage
-const guardaCarritoSS = (listaProductos) => {
-    sessionStorage.setItem('carrito', JSON.stringify(listaProductos));
+const guardaCarritoSS = (listaCarrito) => {
+    sessionStorage.setItem('carrito', JSON.stringify(listaCarrito));
 }
 
 //Devuelve lo de la session Storage de productos
-const obtenerProductosSS = async () => {
+const obtenerProductosSS = () => {
     return JSON.parse(sessionStorage.getItem('productos') ?? '[]');
 }
 
 //Devuelve lo de la session Storage de productos
-const cantProductos = async  () => {
-    const prod = await obtenerProductosSS();
+const cantProductos =   () => {
+    const prod = obtenerProductosSS();
     return prod.length;
 
 }
 
 //Devuelve un nuevo ID para la creación de un nuevo producto
-const nuevoID =  () => {
-    const prod =   obtenerProductosSS();
+const nuevoID =   () => {
+    const prod =    obtenerProductosSS();
     return prod.length+1;
 
 }
