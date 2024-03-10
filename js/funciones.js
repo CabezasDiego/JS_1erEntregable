@@ -1,6 +1,11 @@
-//Guarda prodcutos en al sessionStorage
+//Guarda productos en al sessionStorage
 const guardaProductosSS = (listaProductos) => {
     sessionStorage.setItem('productos', JSON.stringify(listaProductos));
+}
+
+//Guarda carrito en al sessionStorage
+const guardaCarritoSS = (listaProductos) => {
+    sessionStorage.setItem('carrito', JSON.stringify(listaProductos));
 }
 
 //Devuelve lo de la session Storage de productos

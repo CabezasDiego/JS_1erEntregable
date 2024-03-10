@@ -101,7 +101,7 @@ function sumarProdCarrito(index) {
     };
 
     // Obtengo la lista de productos del carrito del sessionStorage
-    let carrito = JSON.parse(sessionStorage.getItem('carrito'));
+    let carrito = obtenerCarritoSS();
 
     // Busca el índice del producto actual en el carrito
     let productoExistenteIndex = carrito.findIndex(producto => producto.id === productoActual.id);
@@ -133,7 +133,7 @@ function sumarProdCarrito(index) {
     }
 
     // Guarda la lista actualizada de productos del carrito en sessionStorage
-    sessionStorage.setItem('carrito', JSON.stringify(carrito));
+    guardaCarritoSS(carrito);
 
 
 }
