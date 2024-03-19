@@ -9,11 +9,18 @@ async function renderProductos() {
         fetch('./js/productos.json')
             .then(respuesta => respuesta.json())
             .then( listaProductos => {
+                //muestro un spinner por demora en carga de los productos
+                cargarSpinner("nodoProductos");
                 // Guarda los datos en sessionStorage
                 guardaProductosSS(listaProductos);
+                //Se coloca un settime para recargar la web y asegurar que los productos estén cargados a tiempo
+                setTimeout(() => {location.reload()}, 1200);
+                
+
             })
             .catch(error => { alert("ERROR al cargar el dato") });
     }
+
 
     // Espera a que los productos se carguen desde sessionStorage
     listaProductos = await obtenerProductosSS();

@@ -1,3 +1,9 @@
+const cargarSpinner=(nodo)=>{
+    document.getElementById(nodo).innerHTML = `<div class="spinner-container"> <div class="spinner-border" role="status">
+    <span class="sr-only"></span>
+  </div></div>`;
+}
+
 //Guarda productos en al sessionStorage
 const guardaProductosSS = (listaProductos) => {
     sessionStorage.setItem('productos', JSON.stringify(listaProductos));
